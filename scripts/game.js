@@ -42,7 +42,10 @@ function createScene()
 
 	var c = document.getElementById("gameCanvas");
 
-	renderer = new THREE.WebGLRenderer();
+	if ( Detector.webgl )
+		renderer = new THREE.WebGLRenderer( {antialias:true} );
+	else
+		renderer = new THREE.CanvasRenderer(); 
 	camera =
 	  new THREE.PerspectiveCamera(
 		VIEW_ANGLE,
@@ -94,6 +97,12 @@ function createScene()
 		{
 		  color: 0xAF601A
 		});
+
+	var ceilingMaterial =
+	  new THREE.MeshLambertMaterial(
+		{
+		  color: 0x18FF07
+		});
 		
 	var plane = new THREE.Mesh(
 
@@ -107,6 +116,7 @@ function createScene()
 	  
 	scene.add(plane);
 	plane.receiveShadow = true;	
+	
 	
 	var table = new THREE.Mesh(
 
@@ -275,7 +285,23 @@ function createScene()
 	  groundMaterial);
 	ground.position.z = -150;
 	ground.receiveShadow = true;	
-	scene.add(ground);		
+	scene.add(ground);
+	
+	var ceiling = new THREE.Mesh(
+
+	  new THREE.CubeGeometry( 
+	  500, 
+	  500, 
+	  3, 
+	  1, 
+	  1,
+	  1 ),
+
+	  ceilingMaterial);
+	ceiling.position.z = 70;
+	ceiling.position.x = 250;
+	ceiling.receiveShadow = true;	
+	scene.add(ceiling);	
 		
 	pointLight =
 		new THREE.PointLight(0xF8D898);
@@ -333,6 +359,7 @@ function mirrorSpherePhysics()
 	if (mirrorSphere.position.y <= -fieldHeight/2)
 	{
 		mirrorSphereDirY = -mirrorSphereDirY;
+		mirrorSphereSpeed = 0;
 	}	
 	if (mirrorSphere.position.y >= fieldHeight/2)
 	{
