@@ -77,11 +77,24 @@ function createScene()
 		{
 		  color: 0xD68910
 		});
-	var planeMaterial =
-	  new THREE.MeshLambertMaterial(
-		{
-		  color: 0x111111
-		});
+		
+	//-----------------------------------------------------------------
+	var texture = new THREE.TextureLoader().load( 'wild.png' );
+
+	// immediately use the texture for material creation
+	var planeMaterial = new THREE.MeshBasicMaterial( { map: texture } );
+	
+	
+	
+	
+	
+	
+	
+	var planeMaterial = new THREE.MeshLambertMaterial({color: 0x111111});
+		
+		
+		
+	//-----------------------------------------------------------------
 	var tableMaterial =
 	  new THREE.MeshLambertMaterial(
 		{
