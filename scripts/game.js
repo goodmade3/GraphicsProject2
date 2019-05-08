@@ -1,6 +1,3 @@
-// ------------------------------------- //
-// ------- GLOBAL VARIABLES ------------ //
-// ------------------------------------- //
 
 var renderer, scene, camera, pointLight, spotLight;
 
@@ -42,10 +39,7 @@ function createScene()
 
 	var c = document.getElementById("gameCanvas");
 
-	if ( Detector.webgl )
-		renderer = new THREE.WebGLRenderer( {antialias:true} );
-	else
-		renderer = new THREE.CanvasRenderer(); 
+	renderer = new THREE.WebGLRenderer();
 	camera =
 	  new THREE.PerspectiveCamera(
 		VIEW_ANGLE,
@@ -79,16 +73,15 @@ function createScene()
 		});
 		
 	//-----------------------------------------------------------------
-	var texture = new THREE.TextureLoader().load( 'wild.png' );
-
+	
+	const textureLoader = new THREE.TextureLoader();
+	
+	//var texture = THREE.ImageUtils.loadTexture( './textures/wild.png', {}, function(){renderer.render(scene, camera);});
+	
+	//var texture = textureLoader.load('./textures/wild.png');
+	
 	// immediately use the texture for material creation
-	var planeMaterial = new THREE.MeshBasicMaterial( { map: texture } );
-	
-	
-	
-	
-	
-	
+	//var planeMaterial = new THREE.MeshBasicMaterial( { map: texture, });
 	
 	var planeMaterial = new THREE.MeshLambertMaterial({color: 0x111111});
 		
@@ -372,7 +365,6 @@ function mirrorSpherePhysics()
 	if (mirrorSphere.position.y <= -fieldHeight/2)
 	{
 		mirrorSphereDirY = -mirrorSphereDirY;
-		mirrorSphereSpeed = 0;
 	}	
 	if (mirrorSphere.position.y >= fieldHeight/2)
 	{
